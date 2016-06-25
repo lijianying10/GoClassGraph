@@ -18,4 +18,6 @@ func NewAnalysis(tag *[]tag.Tag) Analysis {
 
 func (ana *Analysis) Analysis() {
 	fmt.Println("start analysis")
+	ana.ParseFiles2Package()
+	ana.NewPkgsAndFiles()
 }

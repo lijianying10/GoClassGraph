@@ -1,13 +1,12 @@
 package main
 
 import (
-	"fmt"
 	"os"
 
+	"github.com/lijianying10/GoClassGraph/analysis"
 	"github.com/lijianying10/GoClassGraph/file"
 	"github.com/lijianying10/GoClassGraph/tag"
 	"github.com/lijianying10/log"
-	"encoding/json"
 )
 
 func main() {
@@ -15,6 +14,8 @@ func main() {
 	if err != nil {
 		log.Fatal("get cwd error")
 	}
+	//debug
+	currentPath = "/mnt/idea/gopath/src/github.com/eleme/esm-agent"
 	files, err := file.WalkDir(currentPath)
 	if err != nil {
 		log.Fatal("get sourcecode error")
@@ -34,7 +35,10 @@ func main() {
 		tags = append(tags, ts...)
 	}
 
-	b,_:=json.Marshal(tags)
-	fmt.Println(string(b))
+	analysing := analysis.NewAnalysis(&tags)
+	analysing.Analysis()
+
+	//b,_:=json.Marshal(tags)
+	//fmt.Println(string(b))
 
 }

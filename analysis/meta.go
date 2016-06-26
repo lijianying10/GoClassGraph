@@ -1,6 +1,10 @@
 package analysis
 
-import "github.com/lijianying10/GoClassGraph/tag"
+import (
+	"container/list"
+
+	"github.com/lijianying10/GoClassGraph/tag"
+)
 
 type Pkg struct {
 	Name       string
@@ -24,9 +28,12 @@ type AInterface struct {
 }
 
 type Analysis struct {
-	Pkgs         map[string]Pkg
-	ATypes       map[string]AType
-	AInterfaces  map[string]AInterface
-	File2Package map[string]string
-	tags         *[]tag.Tag
+	Pkgs             map[string]Pkg
+	ATypes           map[string]AType
+	AInterfaces      map[string]AInterface
+	File2Package     map[string]string
+	Pkg2Tags         map[string][]tag.Tag
+	tagList          *list.List
+	pkgTagList       map[string]*list.List
+	tags             *[]tag.Tag
 }

@@ -41,9 +41,9 @@ func (dot *DotOutput) DotParsePkg() string {
 		res = res + fmt.Sprintf(`
 	subgraph %s {
         label = "%s"
-        %s [
-            label = "{%s|%s|%s|%s}"
-        ]
+             %s [
+                 label = "{%s|%s|%s|%s}"
+             ]
 		%s
         }`,
 			pkgName,

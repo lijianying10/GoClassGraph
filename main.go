@@ -4,10 +4,10 @@ import (
 	"os"
 
 	"github.com/lijianying10/GoClassGraph/analysis"
+	"github.com/lijianying10/GoClassGraph/dot"
 	"github.com/lijianying10/GoClassGraph/file"
 	"github.com/lijianying10/GoClassGraph/tag"
 	"github.com/lijianying10/log"
-	"github.com/lijianying10/GoClassGraph/dot"
 )
 
 func main() {
@@ -39,7 +39,7 @@ func main() {
 	analysing := analysis.NewAnalysis(&tags)
 	analysing.Analysis()
 
-	dot:= dot.NewDotOutput(&analysing)
+	dot := dot.NewDotOutput(&analysing)
 	dot.OutputClassDiagram()
 
 }

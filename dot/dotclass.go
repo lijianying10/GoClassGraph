@@ -3,8 +3,10 @@ package dot
 import (
 	"fmt"
 
-	"github.com/lijianying10/GoClassGraph/analysis"
 	"strings"
+
+	"github.com/lijianying10/GoClassGraph/analysis"
+	"github.com/satori/go.uuid"
 )
 
 type DotOutput struct {
@@ -39,16 +41,20 @@ func (dot *DotOutput) DotParsePkg() string {
 	res := ""
 	for pkgName, pkg := range dot.ana.Pkgs {
 		res = res + fmt.Sprintf(`
-	subgraph %s {
-        label = "%s"
-             %s [
-                 label = "{%s|%s|%s|%s}"
-             ]
-		%s
+
+	subgraph cluster_%s {
+                label = "%s"
+
+                %s [
+                        label = "{%s|%s|%s|%s}"
+                ]
+
+				%s
+
         }`,
+			RandomName(),
 			pkgName,
-			pkgName,
-			pkgName,
+			RandomName(),
 			StringArrayToDotLines(pkg.Files),
 			StringArrayToDotLines(pkg.Imports),
 			StringArrayToDotLines(pkg.Consts),
@@ -61,26 +67,25 @@ func (dot *DotOutput) DotParsePkg() string {
 
 func (dot *DotOutput) DotParseType(pkg *analysis.Pkg) string {
 	res := ""
-	for _,t:=range pkg.Types {
-		res=res+fmt.Sprintf(`
+	for _, t := range pkg.Types {
+		res = res + fmt.Sprintf(`
 		%s [
 			label = "{%s|%s|%s}"
-		]`,t.Name,t.Name,StringArrayToDotLines(t.Fields),StringArrayToDotLines(t.Methods))
+		]`, RandomName(), t.Name, StringArrayToDotLines(t.Fields), StringArrayToDotLines(t.Methods))
 	}
 	return res
 }
 
 func (dot *DotOutput) DotParseInterface(pkg *analysis.Pkg) string {
 	res := ""
-	for _,t:=range pkg.Interfaces{
-		res=res+fmt.Sprintf(`
+	for _, t := range pkg.Interfaces {
+		res = res + fmt.Sprintf(`
 		%s [
 			label = "{%s|%s}"
-		]`,t.Name,t.Name,StringArrayToDotLines(t.Methods))
+		]`, RandomName(), t.Name, StringArrayToDotLines(t.Methods))
 	}
 	return res
 }
-
 
 func StringArrayToDotLines(inp []string) string {
 	if len(inp) == 0 {
@@ -88,9 +93,16 @@ func StringArrayToDotLines(inp []string) string {
 	}
 	res := ""
 	for _, i := range inp {
-		i=strings.Replace(i,"{","\\{",-1)
-		i=strings.Replace(i,"}","\\}",-1)
+		i = strings.Replace(i, "{", "\\{", -1)
+		i = strings.Replace(i, "}", "\\}", -1)
 		res = res + i + "\\l"
 	}
+	return res
+}
+
+func RandomName() string {
+	var res string
+	res = "T" + uuid.NewV4().String()
+	res = strings.Replace(res, "-", "", -1)
 	return res
 }

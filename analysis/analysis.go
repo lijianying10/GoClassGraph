@@ -22,6 +22,7 @@ func NewAnalysis(tags *[]tag.Tag) Analysis {
 }
 
 func (ana *Analysis) Analysis() {
+
 	ana.ParseFiles2Package()
 	ana.NewPkgsAndFiles()
 	ana.ParsePkg2Tags()

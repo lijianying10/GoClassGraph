@@ -48,7 +48,7 @@ func (ana *Analysis) ParsePkgImports() {
 		}
 
 		for imp, _ := range imports {
-			pkg.Import = append(pkg.Import, imp)
+			pkg.Imports = append(pkg.Imports, imp)
 		}
 
 		ana.Pkgs[pkgName] = pkg

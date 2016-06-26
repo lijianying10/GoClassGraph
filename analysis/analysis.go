@@ -1,8 +1,6 @@
 package analysis
 
 import (
-	"fmt"
-
 	"container/list"
 
 	"github.com/lijianying10/GoClassGraph/tag"
@@ -24,7 +22,6 @@ func NewAnalysis(tags *[]tag.Tag) Analysis {
 }
 
 func (ana *Analysis) Analysis() {
-	fmt.Println("start analysis")
 	ana.ParseFiles2Package()
 	ana.NewPkgsAndFiles()
 	ana.ParsePkg2Tags()

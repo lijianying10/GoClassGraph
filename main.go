@@ -7,6 +7,7 @@ import (
 	"github.com/lijianying10/GoClassGraph/file"
 	"github.com/lijianying10/GoClassGraph/tag"
 	"github.com/lijianying10/log"
+	"github.com/lijianying10/GoClassGraph/dot"
 )
 
 func main() {
@@ -38,7 +39,7 @@ func main() {
 	analysing := analysis.NewAnalysis(&tags)
 	analysing.Analysis()
 
-	//b,_:=json.Marshal(tags)
-	//fmt.Println(string(b))
+	dot:= dot.NewDotOutput(&analysing)
+	dot.OutputClassDiagram()
 
 }

@@ -9,7 +9,7 @@ import (
 type Pkg struct {
 	Name       string
 	Files      []string
-	Import     []string
+	Imports    []string
 	Consts     []string
 	Variables  []string
 	Types      []AType

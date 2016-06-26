@@ -6,7 +6,6 @@ import (
 	"container/list"
 
 	"github.com/lijianying10/GoClassGraph/tag"
-	"github.com/lijianying10/GoClassGraph/tool"
 )
 
 func NewAnalysis(tags *[]tag.Tag) Analysis {
@@ -34,5 +33,4 @@ func (ana *Analysis) Analysis() {
 	ana.ParseVariables()
 	ana.ParseType()
 	ana.ParseInterface()
-	tool.Dump(ana.Pkgs)
 }

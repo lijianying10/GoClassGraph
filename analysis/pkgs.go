@@ -3,6 +3,8 @@ package analysis
 import (
 	"container/list"
 
+	"fmt"
+
 	"github.com/lijianying10/GoClassGraph/tag"
 )
 
@@ -58,7 +60,8 @@ func (ana *Analysis) ParseConstant() {
 	for pkgName, pkg := range ana.Pkgs {
 		for e := ana.pkgTagList[pkgName].Front(); e != nil; e = e.Next() {
 			if e.Value.(tag.Tag).Type == "c" {
-				pkg.Consts = append(pkg.Consts, e.Value.(tag.Tag).Name)
+				var access = AnalysisAccess(e.Value.(tag.Tag).Fields["access"])
+				pkg.Consts = append(pkg.Consts, fmt.Sprintf("%s %s", access, e.Value.(tag.Tag).Name))
 			}
 		}
 
@@ -71,7 +74,9 @@ func (ana *Analysis) ParseVariables() {
 	for pkgName, pkg := range ana.Pkgs {
 		for e := ana.pkgTagList[pkgName].Front(); e != nil; e = e.Next() {
 			if e.Value.(tag.Tag).Type == "v" {
-				pkg.Variables = append(pkg.Variables, e.Value.(tag.Tag).Name)
+				var access = AnalysisAccess(e.Value.(tag.Tag).Fields["access"])
+				// TODO: if there is no type was find use oracle find it.
+				pkg.Variables = append(pkg.Variables, fmt.Sprintf("%s %s:%s", access, e.Value.(tag.Tag).Name, e.Value.(tag.Tag).Fields["type"]))
 			}
 		}
 
@@ -83,11 +88,11 @@ func (ana *Analysis) ParseType() {
 	for pkgName, pkg := range ana.Pkgs {
 		for e := ana.pkgTagList[pkgName].Front(); e != nil; e = e.Next() {
 			if e.Value.(tag.Tag).Type == "t" {
-				typename:=e.Value.(tag.Tag).Name
-				NewType:= AType{
-					Name:typename,
-					Fields:ParseTypeField(ana.pkgTagList[pkgName],typename),
-					Methods:ParseTypeMethod(ana.pkgTagList[pkgName],typename),
+				typename := e.Value.(tag.Tag).Name
+				NewType := AType{
+					Name:    typename,
+					Fields:  ParseTypeField(ana.pkgTagList[pkgName], typename),
+					Methods: ParseTypeMethod(ana.pkgTagList[pkgName], typename),
 				}
 				pkg.Types = append(pkg.Types, NewType)
 			}
@@ -99,13 +104,21 @@ func (ana *Analysis) ParseInterface() {
 	for pkgName, pkg := range ana.Pkgs {
 		for e := ana.pkgTagList[pkgName].Front(); e != nil; e = e.Next() {
 			if e.Value.(tag.Tag).Type == "n" {
-				typename:=e.Value.(tag.Tag).Name
-				pkg.Interfaces= append(pkg.Interfaces, AInterface{
-					Name:typename,
-					Methods:ParseInterfaceMethod(ana.pkgTagList[pkgName],typename),
+				typename := e.Value.(tag.Tag).Name
+				pkg.Interfaces = append(pkg.Interfaces, AInterface{
+					Name:    typename,
+					Methods: ParseInterfaceMethod(ana.pkgTagList[pkgName], typename),
 				})
 			}
 		}
 		ana.Pkgs[pkgName] = pkg
+	}
+}
+
+func AnalysisAccess(acc string) string {
+	if acc == "public" {
+		return "+"
+	} else {
+		return "-"
 	}
 }

@@ -3,10 +3,10 @@ package main
 import (
 	"os"
 
-	"github.com/lijianying10/GoClassGraph/analysis"
-	"github.com/lijianying10/GoClassGraph/dot"
-	"github.com/lijianying10/GoClassGraph/file"
-	"github.com/lijianying10/GoClassGraph/tag"
+	"github.com/lijianying10/GoGraph/analysis"
+	"github.com/lijianying10/GoGraph/dot"
+	"github.com/lijianying10/GoGraph/file"
+	"github.com/lijianying10/GoGraph/tag"
 	"github.com/lijianying10/log"
 )
 

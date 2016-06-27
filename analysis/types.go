@@ -5,7 +5,7 @@ import (
 
 	"fmt"
 
-	"github.com/lijianying10/GoClassGraph/tag"
+	"github.com/lijianying10/GoGraph/tag"
 )
 
 // This file parse types

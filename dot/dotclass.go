@@ -5,7 +5,7 @@ import (
 
 	"strings"
 
-	"github.com/lijianying10/GoClassGraph/analysis"
+	"github.com/lijianying10/GoGraph/analysis"
 	"github.com/satori/go.uuid"
 )
 

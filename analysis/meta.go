@@ -3,7 +3,7 @@ package analysis
 import (
 	"container/list"
 
-	"github.com/lijianying10/GoClassGraph/tag"
+	"github.com/lijianying10/GoGraph/tag"
 )
 
 type Pkg struct {

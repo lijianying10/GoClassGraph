@@ -22,16 +22,16 @@ func NewDotOutput(ana *analysis.Analysis) DotOutput {
 func (dot *DotOutput) OutputClassDiagram() {
 	fmt.Printf(`digraph G {
 		fontname = "Bitstream Vera Sans"
-		fontsize = 8
+		fontsize = 16
 	    node [
                 fontname = "Bitstream Vera Sans"
-                fontsize = 8
+                fontsize = 16
                 shape = "record"
         ]
 
         edge [
                 fontname = "Bitstream Vera Sans"
-                fontsize = 8
+                fontsize = 16
         ]
 		%s
 	}`, dot.DotParsePkg())
@@ -46,7 +46,7 @@ func (dot *DotOutput) DotParsePkg() string {
                 label = "%s"
 
                 %s [
-                        label = "{%s|%s|%s|%s}"
+                        label = "{PKG|%s|%s|%s|%s}"
                 ]
 
 				%s

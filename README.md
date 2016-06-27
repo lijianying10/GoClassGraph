@@ -1,2 +1,2 @@
-# GoClassGraph
+# GoGraph
 

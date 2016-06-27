@@ -16,7 +16,7 @@ func main() {
 		log.Fatal("get cwd error")
 	}
 	//debug
-	currentPath = "/mnt/idea/gopath/src/github.com/eleme/esm-agent"
+	//currentPath = "/mnt/idea/gopath/src/github.com/eleme/esm-agent"
 	files, err := file.WalkDir(currentPath)
 	if err != nil {
 		log.Fatal("get sourcecode error")
